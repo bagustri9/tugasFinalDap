@@ -1,0 +1,281 @@
+* {
+  font-family: 'Roboto', 'Lato', sans-serif;
+  margin     : 0;
+}
+
+.no-gutter.row,
+.no-gutter.container,
+.no-gutter.container-fluid {
+  margin-left  : 0;
+  margin-right : 0;
+  padding-left : 0;
+  padding-right: 0;
+}
+
+.no-gutter>[class^="col-"] {
+  padding-left : 0;
+  padding-right: 0;
+}
+
+.search-icon {
+  padding         : 5px 5px 0px 5px;
+  background-color: transparent;
+  border          : solid #F39347;
+  color           : white !important;
+  border-radius   : 15px;
+  cursor          : pointer;
+}
+
+.search-icon:hover {
+  background-color: #F39347;
+  color           : #1C6FA5 !important;
+}
+
+.logo {
+  width: 200px;
+}
+
+.cursor {
+  background-color: #F39347;
+  width           : 38px;
+  height          : 38px;
+  color           : white;
+  border          : solid #F39347;
+  border-width    : 1px;
+  border-radius   : 50%;
+  cursor          : pointer;
+  transition      : 0.2s;
+}
+
+.cursor:hover {
+  background-color: white;
+  color           : #F39347;
+  transition      : 0.2s;
+}
+
+.md-36 {
+  font-size: 36px;
+}
+
+.info {
+  box-shadow: 0px 7px 4px rgba(0, 0, 0, 0.25);
+}
+
+.bg-blue {
+  background-color: #1C6FA5;
+}
+
+.bg-grey {
+  background-color: #E8E8E8;
+}
+
+.bg-oren {
+  background-color: #F39347;
+}
+
+.button-login {
+  transition   : 0.5s;
+  border-radius: 30px;
+  width        : 100px;
+}
+
+.button-login:hover {
+  background-color: #f18228;
+  transition      : 0.5s;
+  width           : 100px;
+}
+
+.judul {
+  height: 60px;
+  color : #1C6FA5;
+}
+
+.owl-nav {
+  position: absolute;
+  width   : 100%;
+  top     : 50%;
+}
+
+.owl-prev {
+  position: absolute;
+  left    : -7%;
+}
+
+.owl-prev:hover,
+.owl-next:hover {
+  background-color: transparent !important;
+}
+
+.owl-prev:focus,
+.owl-next:focus {
+  outline: none;
+}
+
+.owl-next {
+  position: absolute;
+  right   : -7%;
+}
+
+.owl-dot:focus {
+  outline: none;
+}
+
+.kalendar {
+  border-radius: 20px;
+}
+
+.days {
+  border      : solid white;
+  border-width: 1px;
+  box-shadow  : 0px 0px 2px rgba(0, 0, 0, 0.25);
+}
+
+.days div {
+  box-shadow  : 0px 0px 2px rgba(0, 0, 0, 0.25);
+  border      : solid white;
+  border-width: 1px;
+  transition  : 0.2s;
+  color       : rgba(0, 0, 0, 0.75);
+}
+
+.days div:hover {
+  border      : solid #1C6FA5;
+  border-width: 1px;
+  transition  : 0.2s;
+  color       : #1C6FA5;
+}
+
+.today {
+  background-color: white;
+  color           : #F39347 !important;
+}
+
+.bulan-search {
+  width           : 100%;
+  padding         : 0px;
+  background-color: #F39347;
+  outline         : none;
+}
+
+.bulan-search:focus {
+  box-shadow   : 0px 0px 0px;
+  border-bottom: solid white;
+  border-width : 1px;
+  border-radius: 0px;
+}
+
+.form {
+  height  : 40px;
+  top     : -15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.form input {
+  padding      : 0px;
+  width        : 100%;
+  height       : 100%;
+  border       : none;
+  padding-top  : 10px;
+  border-radius: 0px;
+  outline      : none;
+}
+
+.form label {
+  position      : absolute;
+  bottom        : 0px;
+  left          : 0px;
+  width         : 100%;
+  height        : 100%;
+  pointer-events: none;
+  border-bottom : 1px solid white;
+}
+
+.form label::after {
+  content      : "";
+  position     : absolute;
+  left         : 0px;
+  bottom       : -2px;
+  height       : 100%;
+  width        : 100%;
+  border-bottom: 3px solid #1C6FA5;
+  transform    : translateX(-100%);
+  transition   : all 0.3s ease;
+}
+
+.content-name {
+  position  : absolute;
+  bottom    : 0px;
+  left      : 0px;
+  transition: all 0.3s ease;
+}
+
+.form input:focus+.label-name .content-name,
+.form input:not(:placeholder-shown)+.label-name .content-name {
+  transform: translateY(-120%);
+  font-size: 12px;
+  color    : #1C6FA5;
+}
+
+.form input:focus+.label-name::after,
+.form input:not(:placeholder-shown)+.label-name::after {
+  transform : translateX(0%);
+  transition: all 0.3s ease;
+}
+
+.days .prev-date,
+.days .next-date {
+  color: white;
+}
+
+.seven-cols .col-md-1,
+.seven-cols .col-sm-1,
+.seven-cols .col-lg-1 {
+  width    : 14.285714285714285714285714285714%;
+  *width   : 14.285714285714285714285714285714%;
+  max-width: 14.285714285714285714285714285714% !important;
+  flex     : none !important;
+}
+
+@media only screen and (max-width: 992px) {
+  .owl-next {
+    right: -9%;
+  }
+
+  .owl-prev {
+    left: -9%;
+  }
+
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1 {
+    width    : 14.285714285714285714285714285714%;
+    *width   : 14.285714285714285714285714285714%;
+    max-width: 14.285714285714285714285714285714% !important;
+    flex     : none !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+
+  .owl-next {
+    right: -11%;
+  }
+
+  .owl-prev {
+    left: -11%;
+  }
+
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1 {
+    width : 100%;
+    *width: 100%;
+  }
+}
+
+.dropdown-item:hover {
+  background-color: #F39347;
+  transition      : 0.2s;
+  cursor          : pointer;
+}
