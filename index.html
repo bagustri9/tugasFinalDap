@@ -3,15 +3,14 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" />
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="shortcut icon" href="./assets/icon/png/favicon.ico" type="image/x-icon">
     <title>Beasiswa UB</title>
 </head>
 
@@ -25,103 +24,599 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <hr class="d-block d-md-none" color="white">
                 <ul class="navbar-nav mr-auto mx-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Beranda<span class="sr-only">(current)</span></a>
+                    <li class="nav-item active" onclick="active(this)">
+                        <a class="nav-link" href="#">Beranda</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Beasiswa Terkini</a>
+                    <li class="nav-item" onclick="active(this)">
+                        <a class="nav-link" href="#beasiswa">Beasiswa Terkini</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Berita</a>
+                    <li class="nav-item" onclick="active(this)">
+                        <a class="nav-link" href="#berita">Berita</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kalender</a>
+                    <li class="nav-item" onclick="active(this)">
+                        <a class="nav-link" href="#kalender">Kalender</a>
                     </li>
                 </ul>
-                <div class="row mr-1">
-                    <button class="btn search-icon mr-2" type="submit">
-                        <span class="material-icons">
+                <hr class="d-block d-md-none" color="white">
+                <div class="row mr-1 ml-0 ml-md-2 float-right">
+                    <button class="btn search-icon mr-1" type="submit">
+                        <span class="material-icons cari-halaman">
                             search
                         </span>
                     </button>
-                    <button class="btn bg-oren text-white button-login"> LOGIN </button>
+                    <button class="btn bg-oren text-white button-login" onclick="login()"> LOGIN </button>
+                </div>
+                <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalTitle"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="loginModalTitle">Login Beasiswa UB</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-8 text-center offset-2 mt-2">
+                                    <h3>Login</h3>
+                                </div>
+                                <div class="col-8 form p-0 offset-2 mt-3">
+                                    <input type="text" class="m-0" placeholder=" " name="user" />
+                                    <label class="label-name m-0 border-oren text-oren" for="user">
+                                        <span class="content-name ml-1">username</span>
+                                    </label>
+                                </div>
+                                <div class="col-8 form p-0 offset-2">
+                                    <input type="password" class="m-0" placeholder=" " name="password" />
+                                    <label class="label-name m-0 border-oren text-oren" for="password">
+                                        <span class="content-name ml-1">password</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" onclick="submit()"
+                                    class="btn bg-oren text-white col-6">Login</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="alertLogin" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center pt-4">
+                                <span class="material-icons simbol">
+                                    cancel
+                                </span>
+                                <div class="col-12 text-center mt-3">
+                                    <h2>Login Gagal</h2>
+                                    <h6 color="grey">Tidak dapat login ke sistem</h6>
+                                </div>
+                                <div class="col-12 text-center mt-5">
+                                    <button type="button" class="btn bg-oren text-white" data-dismiss="modal"
+                                        aria-label="Close">
+                                        Okay
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
-        <div class="jumbotron-fluid">
+        <div class="jumbotron-fluid text-nowrap">
+            <div class="input-group box-cari d-none col-10 offset-1">
+                <input type="text" class="form-control cari-text" aria-label="Default"
+                    aria-describedby="inputGroup-sizing-default">
+                <div class="input-group-append">
+                    <span class="input-group-text material-icons box-tombol"
+                        id="inputGroup-sizing-default">search</span>
+                </div>
+            </div>
             <img src="./assets/image/test.jpg" width="100%" alt="">
         </div>
         <div class="judul mt-5 mb-5 text-center">
-            <h2 class=" font-weight-bold">Informasi Beasiswa Terkini</h2>
+            <h2 class=" font-weight-bold" id="beasiswa">Informasi Beasiswa Terkini</h2>
         </div>
         <div class="no-gutter row pt-4 pb-4 px-0 bg-grey">
-            <div class="col-10 offset-1">
-                <div class="owl-carousel owl-theme">
-                    <div class="card text-center info mx-auto" onmouseenter="fokus(this)" onmouseleave="unfokus(this)">
-                        <img class="card-img-top" src="./assets/image/1.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                        </div>
+            <div class="col-12">
+                <div class="splide">
+                    <div class="splide__arrows">
+                        <button class="splide__arrow splide__arrow--prev">
+                            <div class="cursor"> <i class="material-icons md-36"> arrow_left </i> </div>
+                        </button>
+                        <button class="splide__arrow splide__arrow--next">
+                            <div class="cursor"> <i class="material-icons md-36"> arrow_right </i> </div>
+                        </button>
                     </div>
-                    <div class="card text-center info mx-auto" onmouseenter="fokus(this)" onmouseleave="unfokus(this)">
-                        <img class="card-img-top" src="./assets/image/2.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                        </div>
-                    </div>
-                    <div class="card text-center info mx-auto" onmouseenter="fokus(this)" onmouseleave="unfokus(this)">
-                        <img class="card-img-top" src="./assets/image/3.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                        </div>
-                    </div>
-                    <div class="card text-center info mx-auto" onmouseenter="fokus(this)" onmouseleave="unfokus(this)">
-                        <img class="card-img-top" src="./assets/image/1.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                        </div>
-                    </div>
-                    <div class="card text-center info mx-auto my-auto" onmouseenter="fokus(this)"
-                        onmouseleave="unfokus(this)">
-                        <img class="card-img-top" src="./assets/image/2.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                        </div>
-                    </div>
-                    <div class="card text-center info" onmouseenter="fokus(this)" onmouseleave="unfokus(this)">
-                        <img class="card-img-top" src="./assets/image/3.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                        </div>
+                    <div class="splide__track mx-auto" style="width: 85%;">
+                        <ul class="splide__list">
+                            <li class="splide__slide">
+                                <div class="card text-center info mx-auto" data-toggle="modal"
+                                    data-target="#infoBeaModal" data-ke="0" onmouseenter="fokus(this)"
+                                    onmouseleave="unfokus(this)">
+                                    <div class="card-img-top">
+                                        <img width="100%" src="./assets/image/4.jpg" alt="Beasiswa Ajinomoto">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Beasiswa Ajinomoto</h5>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="splide__slide">
+                                <div class="card text-center info mx-auto" data-toggle="modal"
+                                    data-target="#infoBeaModal" data-ke="1" onmouseenter="fokus(this)"
+                                    onmouseleave="unfokus(this)">
+                                    <div class="card-img-top">
+                                        <img width="100%" src="./assets/image/2.png" alt="Beasiswa Global UGRAD">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Beasiswa Global UGRAD</h5>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="splide__slide">
+                                <div class="card text-center info mx-auto" data-toggle="modal"
+                                    data-target="#infoBeaModal" data-ke="2" onmouseenter="fokus(this)"
+                                    onmouseleave="unfokus(this)">
+                                    <div class="card-img-top">
+                                        <img width="100%" src="./assets/image/6.jpg" alt="Beasiswa Pemuda Mendunia">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Beasiswa Pemuda Mendunia</h5>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="splide__slide">
+                                <div class="card text-center info mx-auto" data-toggle="modal"
+                                    data-target="#infoBeaModal" data-ke="3" onmouseenter="fokus(this)"
+                                    onmouseleave="unfokus(this)">
+                                    <div class="card-img-top">
+                                        <img width="100%" src="./assets/image/1.jpg"
+                                            alt="Beasiswa Leiden University Netherlands">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Beasiswa Leiden University Netherlands</h5>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="splide__slide">
+                                <div class="card text-center info mx-auto" data-toggle="modal"
+                                    data-target="#infoBeaModal" data-ke="4" onmouseenter="fokus(this)"
+                                    onmouseleave="unfokus(this)">
+                                    <div class="card-img-top">
+                                        <img width="100%" src="./assets/image/5.png"
+                                            alt="Eiffel Excellence Scholarship Program">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Eiffel Excellence Scholarship Program</h5>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="splide__slide">
+                                <div class="card text-center info mx-auto" data-toggle="modal"
+                                    data-target="#infoBeaModal" data-ke="5" onmouseenter="fokus(this)"
+                                    onmouseleave="unfokus(this)">
+                                    <div class="card-img-top">
+                                        <img width="100%" src="./assets/image/3.jpg"
+                                            alt="Beasiswa Cargill Global Scholars">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Beasiswa Cargill Global Scholars</h5>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="splide__slide">
+                                <div class="card text-center info mx-auto" data-toggle="modal"
+                                    data-target="#infoBeaModal" data-ke="6" onmouseenter="fokus(this)"
+                                    onmouseleave="unfokus(this)">
+                                    <div class="card-img-top">
+                                        <img width="100%" src="./assets/image/7.jpg" alt="Beasiswa Global Youth Action">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Beasisa Global Youth Action</h5>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="judul mt-5 mb-5 text-center">
-            <h2 class=" font-weight-bold">Berita dan Pengumuman</h2>
-        </div>
-        <div class="no-gutter row pt-4 pb-4 px-0 bg-grey">
-            <div>
-
+        <div class="modal fade" id="infoBeaModal" tabindex="-1" role="dialog" aria-labelledby="infoBeaModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="infoBeaModalLabel">Info Beasiswa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="beaImage col-12">
+                            <img src="" width="100%" height="100%" alt="">
+                        </div>
+                        <div class="beaTitle text-center mt-3 col-12">
+                            <h3></h3>
+                        </div>
+                        <hr color="grey">
+                        <div class="beaText px-2 col-12">
+                            <p style="text-align: justify;"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
-
         <div class="judul mt-5 mb-5 text-center">
-            <h2 class=" font-weight-bold">Kalendar</h2>
+            <h2 class=" font-weight-bold" id="berita">Berita dan Pengumuman</h2>
+        </div>
+        <div class="no-gutter row pt-4 pb-4 px-0 bg-grey">
+            <div class="col-12 my-auto">
+                <div class="splide ver">
+                    <div class="splide__arrows" id="arrowTop">
+                        <button class="splide__arrow splide__arrow--prev">
+                            <div class="cursor atas"> <i class="material-icons md-36"> arrow_left </i> </div>
+                        </button>
+                        <button class="splide__arrow splide__arrow--next">
+                            <div class="cursor bawah"> <i class="material-icons md-36"> arrow_right </i> </div>
+                        </button>
+                    </div>
+                    <div class="splide__track col-10 mx-auto">
+                        <ul class="splide__list">
+                            <li class="splide__slide my-2 bg-blue text-white row">
+                                <div class="col-sm-4 col-12 item1" id="image1"></div>
+                                <div class="col-sm-7 text-sm-left text-center col-12 item2 pt-sm-2 pt-0 pl-0 h-100">
+                                    <div class="col-12 ml-sm-2 ml-0 tempat-judul h-40 py-2 py-md-1 py-sm-0">
+                                        <h3>Pusat Studi Peradaban Luncurkan Nugie</h3>
+                                        <h6>03 Januari 2021</h6>
+                                    </div>
+                                    <div class="col-12 ml-2 tempat-isi mt-0 mt-sm-1 h-40">
+                                        <p>Dalam dunia Revolusi Industri 4.0, teknologi merupakan salah satu pilar
+                                            strategi promosi pariwisata dan dapat menjadi, motor penggerak untuk menarik
+                                            wisatawan bahkan di tempat wisata yang kurang terkenal sekalipun.
+                                            Pemanfaatan internet of things (IoT) dapat menyumbang kontribusi yang besar
+                                            untuk menjadikan tempat pariwisata sebagai salah satu objek pasar global,
+                                            bahkan mampu menciptakan pasar baru dalam berbagai bidang lainnya.
+                                            Selaras dengan hal tersebut, Pusat Studi Pariwisata UB telah melakukan riset
+                                            selama tiga tahun (2017-2020) dan menghasilkan luaran berupa purwarupa
+                                            aplikasi berbasis android dengan nama Nugie (Nusantara Guide). Aplikasi ini
+                                            bertujuan untuk menyediakan platform informasi dan navigasi digital tentang
+                                            cagar-cagar budaya di Indonesia, khususnya Indonesian Cultural Heritage.
+                                            Selain itu aplikasi ini juga menghubungkan para pemilik jasa tour guide,
+                                            tour and travel, dan homestay (Community Based Tourism) dalam satu platform
+                                            aplikasi di gawai ponsel pengguna. Teknologi yang dikembangkan dalam
+                                            aplikasi ini antara lain, Augmented Reality (AR), Virtual Reality (VR), 360°
+                                            Camera, Drone, Photogrammetry, Geo-Location dan Simultaneous Localization
+                                            and Mapping atau SLAM. Tampilan antar muka aplikasi ini berupa navigasi
+                                            digital 3D yang interaktif. Sehingga dapat menjadi penunjuk arah, dan
+                                            menampilkan informasi sebuah situs sejarah yang sedang dikunjungi oleh
+                                            pengguna secara simultan.
+                                            Uji coba lapangan aplikasi nugie telah dilakukan di Museum Mpu Tantular,
+                                            Sidoarjo. Hasilnya aplikasi ini berhasil menjadi pemandu digital yang bisa
+                                            mengarahkan pengguna menjelajah benda-benda koleksi utama dalam museum
+                                            tersebut secara simultan. Dokumentasi uji coba ini bisa dilihat lebih jelas
+                                            di website Pusat Studi Peradaban, www.psp.ub.ac.id.
+                                            Aplikasi Nugie ini masih berupa purwarupa, sehingga penelitian dan
+                                            perancangan masih harus terus dilakukan kedepan. Kritik dan saran yang
+                                            bersifat membangun sangat diharapkan agar aplikasi dapat semakin baik dan
+                                            bermanfaat.
+                                            Pusat Studi Peradaban (PSP) merupakan Lembaga dibawah naungan LPPM
+                                            Universitas Brawijaya yang didirikan karena mengingat kesadaran akan
+                                            kebesaraan sejarah Nusantara, nilai-nilai luhur yang dianut, dan kekayaan
+                                            alam yang melimpah. Nilai-nilai luhur warisan leluhur tersebut akan kami
+                                            gali dan akan kami aktualkan untuk merajut kembali peran sejarah masa kini
+                                            dan masa depan. Pusat Studi Peradaban memiliki visi yaitu “Membangun
+                                            Peradaban Nusantara yang Humanis pada Tahun 2090 M”. Sejalan dengan visi
+                                            tersebut, Pusat Studi Peradaban bergerak untuk menjadi lembaga pemrakarsa
+                                            untuk melakukan kajian, penelitian, eksplorasi kebudayaan dan peradaban di
+                                            nusantara ini.(psp ub/sitirahma)
+                                        </p>
+                                    </div>
+                                    <div class="col-12 ml-sm-2 ml-0 mt-sm-1 mt-0 ">
+                                        <div class="col-12 text-center text-sm-right" data-toggle="modal"
+                                            data-target="#beritaModal" data-ke="0">
+                                            <a class="button-readmore btn">Read More</a></div>
+                                    </div>
+                                </div>
+                                <div class="bg-oren col-sm-1 col-12 item3"></div>
+                            </li>
+                            <li class="splide__slide my-2 bg-blue text-white row">
+                                <div class="col-sm-4 col-12 item1" id="image2"></div>
+                                <div class="col-sm-7 text-sm-left text-center col-12 item2 pt-sm-2 pt-0 pl-0 h-100">
+                                    <div class="col-12 ml-sm-2 ml-0 tempat-judul py-2 py-md-1 py-sm-0">
+                                        <h3>Rektor Lantik 90 Pejabat Fungsional Sesuai Prokes</h3>
+                                        <h6>30 Desember 2020</h6>
+                                    </div>
+                                    <div class="col-12 ml-2 tempat-isi mt-0 mt-sm-1">
+                                        <p>Menjelang akhir tahun 2020, Rektor UB Prof. Dr. Ir. Nuhfil Hanani AR, MS
+                                            melantik 90 pejabat fungsional sesuai protokol kesehatan COVID-19 secara
+                                            ketat. Acara pelantikan dan sumpah jabatan pejabat fungsional ini
+                                            dilaksanakan Rabu, (30/12/2020) di Gedung Kebudayaan Mahasiswa.
+                                            Acara ini juga dilakukan secara terbatas dan hanya diwakili oleh empat
+                                            pejabat fungsional yang diambil sumpahnya. Pelantikan Pejabat fungsional ini
+                                            berdasar pada Keputusan Menteri Pendidikan dan Kebudayaan Nomor 111896 s/d
+                                            114144/A.A3/KP 2020 tentang Pengangkatan Melalui Penyetaraan Jabatan
+                                            Administrasi Ke Dalam Jabatan Fungsional.
+                                            Rektor, Prof. Dr. Ir. Nuhfil Hanani AR, MS dalam sambutannya berpersan
+                                            kepada Pejabat Fungsional yang baru dilantik agar pergantian jabatan ini
+                                            menjadi landasan kinerja agar lebih profesional guna mendongkrak prestasi UB
+                                            di masa yang akan datang.
+                                            “Ini merupakan sejarah serentak se Indonesia, karena peraturan Menteri
+                                            Pendidikan dan Kebudayaan menyetarakan pejabat administrasi ke fungsional
+                                            demi meningkatnya kinerja lembaga dengan proses birokrasi yang cepat,
+                                            efisien, bersih dan melayani,”Kata Prof. Nuhfil. Dia juga berpesan kepada
+                                            seluruh pejabat fungsional yang dilantik baik yang luring dan daring untuk
+                                            menjaga protokol kesehatan demi menghindari paparan virus COVID-19.
+                                            (DMS/Humas UB).
+                                        </p>
+                                    </div>
+                                    <div class="col-12 ml-sm-2 ml-0 mt-sm-1 mt-0" data-toggle="modal"
+                                        data-target="#beritaModal" data-ke="1">
+                                        <div class="col-12 text-center text-sm-right">
+                                            <a class="button-readmore btn">Read More</a></div>
+                                    </div>
+                                </div>
+                                <div class="bg-oren col-sm-1 col-12 item3"></div>
+                            </li>
+                            <li class="splide__slide my-2 bg-blue text-white row">
+                                <div class="col-sm-4 col-12 item1" id="image3"></div>
+                                <div class="col-sm-7 text-sm-left text-center col-12 item2 pt-sm-2 pt-0 pl-0 h-100">
+                                    <div class="col-12 ml-sm-2 ml-0 tempat-judul py-2 py-md-1 py-sm-0">
+                                        <h3>Kopi Mangga Bebas Limbah Hantarkan Juara untuk UB </h3>
+                                        <h6>30 Desember 2020</h6>
+                                    </div>
+                                    <div class="col-12 ml-2 tempat-isi mt-0 mt-sm-1">
+                                        <p>Kopi Arabika sudah dikenali di kalangan penikmat kopi. Dengan sedikit rasa
+                                            asam, jenis kopi ini juga menjadi favorit penikmat kopi dunia. Namun,
+                                            bagaimana jika kopi dicampur dengan manga? Hal ini yang dilakukan oleh
+                                            mahasiswa Universitas Brawijaya lintas fakultas. Kombinasi kopi Arabika dari
+                                            lereng Arjuno dengan ekstrak kulit mangga Podang menghasilkan kopi nikmat
+                                            dengan rasa dan aroma mangga.
+                                            Adalah Faiz Arsyad, Demmy Filsafa Ratna Putra, Rishna Widhia Kusumawati dan
+                                            Arsyad Salman Yusra Abdi Jasri dari Fakultas Pertanian dan Serira Surya
+                                            Candini dari Fakultas Ilmu Administrasi yang menemukan kombinasi ajaib
+                                            bernama MASCO. Mango Peels Coffee, Innovation of Healthy Arabica Coffee
+                                            Drinks Based on Zero Waste System (MASCO) merupakan kombinasi ekstrak kulit
+                                            mangga Podang khas Kediri dengan kopi Arabika, dengan prinsip bebas limbah.
+                                            Mangga Podang, menurut Faiz, adalah mangga khas Kediri. “Mangga Podang
+                                            adalah tipe mangga khas Kediri. Tingginya produksi dan konsumsi mangga
+                                            menghasilkan limbah berupa kulit yang tidak termanfaatkan. Sehingga kita
+                                            memanfaatkan kulit mangga ini menjadi minuman”, jelasnya.
+                                            Hasil riset menunjukkan, kulit mangga Podang sendiri mengandung beberapa
+                                            senyawa aktif, seperti Polyphenols, Alpha Hydorxil Acid (AHA), Amyhocyanins,
+                                            Flavonoid serta vitamin C dan E. Dengan durasi proses dalam waktu kurang
+                                            dari 1 hari, kulit mangga ini diolah menjadi bubuk. “Minum kopi telah
+                                            menjadi tren baru di masyarakat, seiring dengan semakin menjamurnya kedai
+                                            kopi di berbagai daerah. Dengan adanya MASCO, maka dapat memaksimalkan
+                                            potensi kopi sama halnya dengan pendapatan petani mangga, sekaligus
+                                            mengurangi limbah kulitnya. Kopi ini dijual dalam bentuk bubuk. Cukup
+                                            diseduh dengan air panas, kopi ini siap dikonsumsi kapan saja”, papar Faiz.
+                                            Di sisi lain, kopi tubruk di Indonesia mengandung banyak kandungan kafein.
+                                            “Efek konsumsi kafein berlebihan dapat berdampak pada kecanduan, pengentalan
+                                            darah, mengakibatkan serangan jantung dan struk”, imbuh mahasiswa angkatan
+                                            2016 ini. Melalui MASCO, tim ini menyajikan alternatif kopi bubuk yang dapat
+                                            dinikmati dengan manfaat kesehatan.
+                                            Tim MASCO juga telah bermitra dengan UMKM olahan mangga Podang dan beberapa
+                                            kedai kopi. 1 kantong kopi mangga dengan berat 100 gr dibandrol dengan harga
+                                            Rp 20.000,- atau setara dengan USD 2. Kombinasi dua bahan ini menghasilkan
+                                            kopi dengan rasa pahit yang lebih sedikit dan dapat mengurangi resiko
+                                            diabetes, kanker, kolsterol dan penyakit jantung koroner.
+                                            Melalui MASCO, tim ini telah berhasil meraih Gold Medal dan Platinum Award
+                                            in International Invention and Trade Expo (ITEXPO), London 2020. Meskipun
+                                            dilakukan secara daring, kelompok ini berhasil menyisihkan 100 inovator dari
+                                            30 negara. “Salah satu yang membuat tim kita menang adalah mengangkat
+                                            kearifan lokal melalui penggunaan bahan baku asli Indonesia. [VQ]
+                                        </p>
+                                    </div>
+                                    <div class="col-12 ml-sm-2 ml-0 mt-sm-1 mt-0" data-toggle="modal"
+                                        data-target="#beritaModal" data-ke="2">
+                                        <div class="col-12 text-center text-sm-right">
+                                            <a class="button-readmore btn">Read More</a></div>
+                                    </div>
+                                </div>
+                                <div class="bg-oren col-sm-1 col-12 item3"></div>
+                            </li>
+                            <li class="splide__slide my-2 bg-blue text-white row">
+                                <div class="col-sm-4 col-12 item1" id="image4"></div>
+                                <div class="col-sm-7 text-sm-left text-center col-12 item2 pt-sm-2 pt-0 pl-0 h-100">
+                                    <div class="col-12 ml-sm-2 ml-0 tempat-judul py-2 py-md-1 py-sm-0">
+                                        <h3>Website UB Raih Juara 1 Anugerah Humas Dikti 2020</h3>
+                                        <h6>30 Desember 2020</h6>
+                                    </div>
+                                    <div class="col-12 ml-2 tempat-isi mt-0 mt-sm-1">
+                                        <p>Universitas Brawijaya (UB) kembali meraih prestasi pada ajang Anugerah Humas
+                                            Dikti (AHD) 2020, yaitu Juara 1 untuk kategori Pengelolaan Laman, dan Juara
+                                            Harapan 1 untuk kategori Pengelolaan Media Sosial. Hal ini diumumkan pada
+                                            acara “Capaian Kinerja, Anugerah Dikti Tahun 2020 serta Proyeksi Kinerja
+                                            Tahun 2021” yang digelar oleh Direktorat Jenderal Pendidikan Tinggi
+                                            Kementerian Pendidikan dan Kebudayaan, Rabu (23/12/2020), secara daring.
+                                            Penilaian dilakukan mulai bulan September 2020 dengan tahapan mengirimkan
+                                            laporan kegiatan kehumasan pada masing-masing kategori lomba, presentasi
+                                            kegiatan kehumasan, menampilkan video kegiatan, serta wawancara.
+                                            Kepala Sub Bagian Kearsipan dan Humas Kotok Gurito menyampaikan, prestasi
+                                            ini sebagai anugerah menjelang tutup tahun 2020. “Prestasi terbaik I untuk
+                                            pengelolaan laman (web) UB sangat membanggakan karena menang untuk keempat
+                                            kalinya sejak 2017 sampai sekarang. Untuk medsos dan bidang lainnya akan
+                                            kita tingkatkan lagi dimasa yang akan datang,” katanya.
+                                            Peserta AHD terdiri dari PTN Badan Hukum (PTN-BH), PTN adan Layanan Umum
+                                            (BLU), PTN Satuan Kerja, dan LLDikti. Ada pun kategori yang diberikan dalam
+                                            anugerah ini meliputi pengelolaan laman, media sosial, konferensi pers dan
+                                            siaran pers, majalah, insan humas terpopuler, dan pengelolaan pengaduan
+                                            pelayanan publik melalui LAPOR!
+                                            Kriteria penilaian untuk kategori Laman antara lain bounce rate (persentase
+                                            jumlah pengunjung yang mengakses dalam satu hari dibagi total jumlah
+                                            pengunjung), page per-session (jumlah halaman yang diakses dalam satu kali
+                                            kunjungan), dan duration (rata-rata durasi kunjungan) yang tercermin dalam
+                                            google analytic. Sementara itu penilaian dalam kategori Media Sosial antara
+                                            lain ragam media sosial, engagement rate melalui social media analytic,
+                                            seperti insight Facebook dan Instagram).
+                                            Penilaian dilakukan oleh Tim Juri Independen yang terdiri dari Ade
+                                            Kadarisman, S.Sos., M.T., M.Sc (Akademisi dari Universitas Padjadjaran-UNPAD
+                                            Bandung), Donny, B.U. S.T., M.Si, Wicaksono, dan Ester Lince Napitupulu.
+                                            Direktur Jenderal Pendidikan Tinggi Prof. Ir. Nizam, M.Sc., DIC., Ph.D dalam
+                                            kegiatan ini menuturkan, Anugerah Humas Dikti merupakan bentuk penghargaan
+                                            yang diberikan dari hasil pemantauan dan evaluasi kinerja humas Perguruan
+                                            Tinggi Negeri (PTN) dan Lembaga Layanan Pendidikan Tinggi (LLDikti), serta
+                                            menjadi pengukuran terhadap kinerja humas.
+                                            “Selamat kepada rekan-rekan humas di perguruan tinggi, kami mengapresiasi
+                                            seluruh upaya selama ini untuk membawa kabar baik dari kampus ke masyarakat.
+                                            Perguruan tinggi harus selalu bisa menjadi mata air bagi masyarakat dan
+                                            mencerahkan kehidupan bangsa,” pungkas Nizam. [Irene]
+                                        </p>
+                                    </div>
+                                    <div class="col-12 ml-sm-2 ml-0 mt-sm-1 mt-0">
+                                        <div class="col-12 text-center text-sm-right" data-toggle="modal"
+                                            data-target="#beritaModal" data-ke="3">
+                                            <a class="button-readmore btn">Read More</a></div>
+                                    </div>
+                                </div>
+                                <div class="bg-oren col-sm-1 col-12 item3"></div>
+                            </li>
+                            <li class="splide__slide my-2 bg-blue text-white row">
+                                <div class="col-sm-4 col-12 item1" id="image5"></div>
+                                <div class="col-sm-7 text-sm-left text-center col-12 item2 pt-sm-2 pt-0 pl-0 h-100">
+                                    <div class="col-12 ml-sm-2 ml-0 tempat-judul py-2 py-md-1 py-sm-0">
+                                        <h3>Perpustakaan UB Juara 3 EVALIA Award FPPTI Jatim</h3>
+                                        <h6>18 Desember 2020</h6>
+                                    </div>
+                                    <div class="col-12 ml-2 tempat-isi mt-0 mt-sm-1">
+                                        <p>Perpustakaan UB meraih juara III dalam East Java Academic Library Innovation
+                                            Award (EVALIA) yang diselenggarakan oleh FPPTI (Forum Perpustakaan Perguruan
+                                            Tinggi Negeri Indonesia) Jatim. Dalam kategori tersebut juara pertama dan
+                                            kedua masing masing diraih oleh Universitas Ciputra dan Universitas Katolik
+                                            Widya Mandala Surabaya.
+                                            Selama masa pandemi ada beberapa inovasi yang telah diterapkan perpustakaan
+                                            yaitu peminjaman buku online, bebas pustaka online, serah simpan tugas akhir
+                                            online, akses e-book dan e-jurnal menggunakan SSO RemoteXs, pelatihan
+                                            literasi informasi online, layanan request file repository, sosial media dan
+                                            WA hotline.
+                                            “Di masa pandemi ini peran perpustakaan sebagai pusat informasi dan ilmu
+                                            pengetahuan bagi masyarakat harus tetap berjalan seperti sebelum ada
+                                            pandemi. Para pustakawan dituntut untuk menggali berbagai hal yang berkaitan
+                                            dengan sumber-sumber informasi, layanan, dan strategi agar bisa memenuhi
+                                            kebutuhan dan memuaskan para pemustakanya,”kata Kepala Perpustakaan Johan C
+                                            Noor. EVALA (East Java Academic Library Award) dan EVALIA (East Java
+                                            Academic Librarian Innovation Award) sudah diadakan sejak tahun 2017.
+                                            EVALA adalah ajang pemilihan pustakawan berprestasi tingkat perguruan tinggi
+                                            wilayah Jawa Timur. Sedangkan EVALIA merupakan ajang apresiasi kepada
+                                            perpustakaan yang tetap bisa berinovasi dan kreatif dalam penyelenggaraan
+                                            perpustakaan baik masa pandemi dan era new normal. Dalam ajang EVALA dan
+                                            EVALIA 2020 ini, Perpustakaan UB mengirimkan dua perwakilannya yaitu Maria
+                                            Desi Swista Dewi, S.Pd., S.Hum dengan makalah berjudul Inovasi Layanan
+                                            Perpustakaan Brawijaya di Masa Pandemi Covid 19 dan Prayoga Rizki Wikandani,
+                                            SAP mempresentasikan karya ilmiah berjudul Eksistensi Perpustakaan Brawijaya
+                                            dengan Penerapan System Layanan Online di Masa New Normal.
+                                            Acara ini diselenggarakan secara online melalui media zoom pada tanggal 15
+                                            Desember 2020 mulai dari pukul 08.00 sampai dengan 17.00 WIB. Adapun yang
+                                            menjadi juri dalam event ini adalah para pustakawan senior, salah satunya
+                                            adalah Ibu Welmin Sunyi Ariningsih, M.Lib. Peserta EVALA dan EVALIA 2020
+                                            berasal dari seluruh perpustakaan perguruan tinggi baik negeri maupun swasta
+                                            yang ada di Jawa Timur. (IWN/Humas UB)
+                                        </p>
+                                    </div>
+                                    <div class="col-12 ml-sm-2 ml-0 mt-sm-1 mt-0" data-toggle="modal"
+                                        data-target="#beritaModal" data-ke="4">
+                                        <div class="col-12 text-center text-sm-right"><a
+                                                class="button-readmore btn">Read More</a></div>
+                                    </div>
+                                </div>
+                                <div class="bg-oren col-sm-1 col-12 item3"></div>
+                            </li>
+                            <li class="splide__slide my-2 bg-blue text-white row">
+                                <div class="col-sm-4 col-12 item1" id="image6"></div>
+                                <div class="col-sm-7 text-sm-left text-center col-12 item2 pt-sm-2 pt-0 pl-0 h-100">
+                                    <div class="col-12 ml-sm-2 ml-0 tempat-judul py-2 py-md-1 py-sm-0">
+                                        <h3>UB Masih Lakukan Pembelajaran Secara Daring Semester Depan</h3>
+                                        <h6>10 Desember 2020</h6>
+                                    </div>
+                                    <div class="col-12 ml-2 tempat-isi mt-0 mt-sm-1">
+                                        <p>Universitas Brawijaya (UB) masih akan melakukan pembelajaran secara daring
+                                            pada semester depan karena pandemi COVID-19 yang masih merebak.
+                                            Wakil Rektor I Bidang Akademik Prof. Aulanni’am menjelaskan pembelajaran
+                                            daring masih dilakukan dalam bentuk sinkron dan asinkron. “Pembelajaran
+                                            Sinkron merupakan belajar daring dalam waktu yang sama, belajar secara
+                                            langsung, dan terlibat secara langsung,”kata Prof. Aul.
+                                            Tidak hanya Pembelajaran Sinkron, UB juga melakukan secara Asinkron.
+                                            Pembelajaran Asinkron merupakan pembelajaran daring pada waktu yang berbeda.
+                                            Komunikasi pada pembelajaran Asinkron bisa dilakukan melalui web, email,
+                                            atapun pesan yang di posting di forum komunitas.
+                                            Sedangkan untuk praktikum dan kegiatan lapangan, UB memberlakukan penyertaan
+                                            ijin dari orang tua secara tertulis dan bagi mahasiswa yang mempunyai
+                                            Comorbid harus menyertakan bahwa dirinya sehat. “UB tetap melakukan protokol
+                                            kesehatan jika memang diharuskan untuk melakukan praktikum dan kegiatan
+                                            lapangan. Harus menggunakan masker dengan tiga lapis. Mahasiswa yang punya
+                                            comorbid dalam kondisi terkontrol dan yang masuk tidak dalam kondisi
+                                            COVID,”kata Wakil Rektor I Bidang Akademik Prof. Aulanni’am.
+                                            Sebelumnya, berdasarkan Peraturan Rektor Nomor 35 Tahun 2020 tentang
+                                            Penyelenggaraan Kampus Tangguh Universitas Brawijaya, proses pembelajaran
+                                            semester Genap 2020/2021 dilakukan diselenggarakan secara daring.
+                                            Kedua, penyelenggaraan penelitian dan kegiatan lapang lainnya dapat
+                                            diselenggarakan secara luring dengan syarat sivitas akademika dan mahasiswa
+                                            dalam kondisi sehat;, mahasiswa Vokasi dan S1 WAJIB mendapat persetujuan
+                                            tertulis dari orang tua atau pihak yang menanggungnya; serta menerapkan
+                                            protokol kesehatan dan mendapatkan izin Dekan Fakultas/Direktur
+                                            Pascasarjana/Direktur Vokasi/Direktur PSDKU.
+                                            Ketiga, pimpinan Fakultas/Program WAJIB memastikan seluruh kegiatan sesuai
+                                            dengan standar operasional prosedur protokol kesehatan serta melakukan
+                                            pemantauan dan evaluasi secara berkala terhadap pelaksanaan kegiatan
+                                            pembelajaran sesuai dengan standar protokol kesehatan.
+                                        </p>
+                                    </div>
+                                    <div class="col-12 ml-sm-2 ml-0 mt-sm-1 mt-0" data-toggle="modal"
+                                        data-target="#beritaModal" data-ke="5">
+                                        <div class="col-12 text-center text-sm-right"><a
+                                                class="button-readmore btn">Read More</a></div>
+                                    </div>
+                                </div>
+                                <div class="bg-oren col-sm-1 col-12 item3"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="beritaModal" tabindex="-1" role="dialog" aria-labelledby="beritaModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="beritaModalLabel">Berita dan Pengumuman</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="beaImage col-12">
+                            <img src="" width="100%" height="100%" alt="">
+                        </div>
+                        <div class="beaTitle text-center mt-3 col-12">
+                            <h3></h3>
+                        </div>
+                        <hr color="grey">
+                        <div class="beaText px-2 col-12">
+                            <p style="text-indent: 50px; text-align: justify;"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="judul mt-5 mb-5 text-center">
+            <h2 class=" font-weight-bold" id="kalender">Kalender</h2>
         </div>
 
-        <div class="kalendar px-5 pb-5 bg-oren mb-2 text-white col-10 offset-1">
+        <div class="kalendar px-5 pb-5 bg-oren mb-5 text-white col-10 offset-1">
             <div class="month row pt-2">
                 <div class="date col-sm-12 col-md-8 order-md-2 mt-md-5 mt-sm-2 text-right">
                     <div>
-                        <h3>Sosialisasi Beasiswa Solidaritas Filkom</h3>
-                        <p></p>
-                    </div>
-                    
-                    <div>
-                        <h3>Sosialisasi Beasiswa Solidaritas Filkom</h3>
+                        <h3></h3>
                         <p></p>
                     </div>
                 </div>
@@ -172,11 +667,76 @@
             <div class="days row text-right seven-cols">
             </div>
         </div>
+
+        <footer class="bg-blue row pr-0 pt-3 mx-0 mt-4">
+            <div class="col-6 pl-sm-5 pl-3">
+                <h3><u>Kontak Kami</u></h3>
+                <p>
+                    <br>
+                    BAK<br>
+                    Universitas Brawijaya<br>
+                    Gedung Rektorat Lantai 3<br>
+                    Jalan Veteran Malang 65145<br>
+                    Telepon : 0341 551611, 0341 573600<br>
+                    Pesawat : 123<br>
+                    Fax : 0341 575813<br>
+                    Website : www.beasiswa.ub.ac.id<br>
+                    E-mail : beasiswa[at]ub.ac.id
+                </p>
+            </div>
+            <div class="col-sm-5 col-6 offset-sm-1 offset-0 row pl-sm-1 pl-0 pr-0">
+                <div class="col-12 py-0">
+                    <h3><u>Layanan Universitas Brawijaya</u></h3>
+                </div>
+                <div class="col-sm-6 col-12 lay">
+                    <a href="http://gapura.ub.ac.id/">Gapura UB</a><br>
+                    <a href="https://sertifikasi.ub.ac.id/">Sertifikasi UB</a><br>
+                    <a href="https://bais.ub.ac.id/">BAIS</a><br>
+                    <a href="https://bits.ub.ac.id/">BITS</a><br>
+                </div>
+                <div class="col-sm-6 col-12 lay">
+                    <a href="https://prasetya.ub.ac.id/id/">Prasetya</a><br>
+                    <a href="https://selma.ub.ac.id/id/">Selma</a><br>
+                    <a href="https://siam.ub.ac.id/">SIAM</a><br>
+                    <a href="https://konseling.ub.ac.id/">E-Counseling</a><br>
+                </div>
+                <div class="col-12 pl-0 pr-0 pt-2">
+                    <ul id="listing">
+                        <li>
+                            <a href="https://www.facebook.com/Universitas.Brawijaya.Official/">
+                                <img src=".\assets\icon\png\fb.png" width="30px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/channel/UCnc-7fM48ye43KLZH7n9ZXg">
+                                <img src=".\assets\icon\png\tw.png" width="30px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/channel/UCnc-7fM48ye43KLZH7n9ZXg">
+                                <img src=".\assets\icon\png\yt.png" width="30px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.flickr.com/photos/ub_pictures/">
+                                <img src=".\assets\icon\png\fl.png" width="30px">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/univ.brawijaya">
+                                <img src=".\assets\icon\png\ig.png" width="30px">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
